@@ -2,14 +2,6 @@ import express from 'express';
 import {
      getHomePage,
      getDetailpage,
-     postNewCountry,
-     getDataDelete,
-     deleteCountry,
-     getDataEdit,
-     updateCountry,
-     uploadFile,
-     handleUploadFile,
-     handleUploadMultipleFiles
 } from '../controllers/homeController';
 import multer from 'multer';
 import path from 'path';
@@ -45,31 +37,6 @@ let uploadMultipleFiles = multer({ storage: storage, fileFilter: imageFilter }).
 const initWebRoute = (app) => {
      router.get('/', getHomePage);
      router.get('/detail/user/:id', getDetailpage);
-     router.get('/delete/:countryId', getDataDelete)
-     router.get('/edit/:countryId', getDataEdit)
-     router.get('/upload', uploadFile)
-
-     router.post('/create-new-country', postNewCountry);
-     router.post('/update/:id', updateCountry)
-     router.post('/delete/:id', deleteCountry)
-     router.post('/upload-profile-pic', upload.single('profile_pic'), handleUploadFile)
-
-     router.post('/upload-multiple-images', (req, res, next) => {
-          uploadMultipleFiles(req, res, (err) => {
-               if (err instanceof multer.MulterError && err.code === "LIMIT_UNEXPECTED_FILE") {
-                    // handle multer file limit error here
-                    res.send('LIMIT_UNEXPECTED_FILE')
-               } else if (err) {
-                    res.send(err)
-               }
-
-               else {
-                    // make sure to call next() if all was well
-                    next();
-               }
-          })
-     }, handleUploadMultipleFiles)
-
      return app.use('/', router);
 };
 

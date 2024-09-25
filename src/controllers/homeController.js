@@ -1,14 +1,9 @@
-import connection from "../configs/connectDB";
 
+import db from "../models/index";
 const getHomePage = async (req, res) => {
-     try {
-          let [rows, fields] = await connection.execute('SELECT * FROM city LIMIT 30');
-          let data = rows;
-          return res.render('Home.ejs', { data: data });
-     } catch (err) {
-          console.error(err);
-          return res.status(500).send('Internal Server Error');
-     }
+     let data = await db.User.findAll();
+     console.log(data)
+     return res.render('Home.ejs', { data: data })
 };
 
 const getDetailpage = async (req, res) => {
@@ -67,11 +62,6 @@ let handleUploadMultipleFiles = async (req, res) => {
 export {
      getHomePage,
      getDetailpage,
-     getDataDelete,
-     postNewCountry,
-     deleteCountry,
-     getDataEdit,
-     updateCountry,
      uploadFile,
      handleUploadFile,
      handleUploadMultipleFiles

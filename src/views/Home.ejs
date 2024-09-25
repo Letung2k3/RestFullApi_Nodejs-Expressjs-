@@ -7,67 +7,10 @@
      <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-     <div class="topnav">
-          <a class="active" href="/">Home</a>
-          <a href="/upload">Upload File</a>
+     <div>Data:
+          <%=JSON.stringify(data)%>
      </div>
 
-     <div class="form-container">
-          <div><b>Create New Country</b></div>
-          <form action="/create-new-country" method="POST" enctype="application/x-www-form-urlencoded">
-               <div class="item">
-                    <label>Name</label>
-                    <input type="text" name="name">
-               </div>
-
-               <div class="item">
-                    <label>Country Code</label>
-                    <input type="text" name="countryCode" >
-               </div>
-
-               <div class="item">
-                    <label>District</label>
-                    <input type="text" name="district" >
-               </div>    
-               <div class="item">
-                    <label>Population</label>
-                    <input type="number" name="population" >
-               </div>
-               <button type="submit">Submit</button>
-          </form>
-     </div>
-
-     <div>
-          List of Countries
-     </div>
-
-     <div class="table-container">
-          <table>
-               <thead>
-                    <tr>
-                         <th>Name</th>
-                         <th>Country Code</th>
-                         <th>District</th>
-                         <th>Population</th>
-                         <th>Action</th>
-                    </tr>
-               </thead>
-               <tbody>
-                    <% data.forEach(function(item) { %>
-                         <tr>
-                              <td><%= item.Name %></td>
-                              <td><%= item.CountryCode %></td>
-                              <td><%= item.District %></td>
-                              <td><%= item.Population %></td>
-                              <td>
-                                   <a href="/detail/user/<%= item.ID %>">Detail</a>
-                                   <a href="/edit/<%= item.ID %>">Edit</a>
-                                   <a href="/delete/<%= item.ID %>">Delete</a>
-                              </td>
-                         </tr>
-                    <% }); %>
-               </tbody>
-          </table>
-     </div>
+    
 </body>
 </html>
