@@ -1,23 +1,31 @@
 
+import { render } from "ejs";
 import db from "../models/index";
-const getHomePage = async (req, res) => {
+import {
+     createNewUser,
+     displayCRUD,
+     getAllUsers
+} from "../services/CRUDServices";
+let getHomePage = async (req, res) => {
      let data = await db.User.findAll();
-     console.log(data)
      return res.render('Home.ejs', { data: data })
 };
 
-const getDetailpage = async (req, res) => {
-     let id = req.params.id;
-     try {
-          let [results, fields] = await connection.execute('SELECT * FROM city WHERE ID = ?', [id]);
-          return res.send(JSON.stringify(results));
-     } catch (err) {
-          console.error(err);
-          return res.status(500).send('Internal Server Error');
-     }
+let getHomeCRUD = async (req, res) => {
+     return res.render('crud.ejs')
 };
 
-const uploadFile = (req, res) => {
+let postCRUD = async (req, res) => {
+     let messenger = await createNewUser(req.body);
+     return res.send("post crud from server!")
+}
+
+let displayGetCRUD = async (req, res) => {
+     let results = await getAllUsers();
+     return res.render("displayCrud.ejs", { data: results })
+}
+
+let uploadFile = (req, res) => {
      return res.render('uploadFile.ejs')
 }
 
@@ -61,8 +69,10 @@ let handleUploadMultipleFiles = async (req, res) => {
 }
 export {
      getHomePage,
-     getDetailpage,
+     getHomeCRUD,
      uploadFile,
      handleUploadFile,
-     handleUploadMultipleFiles
+     handleUploadMultipleFiles,
+     postCRUD,
+     displayGetCRUD
 };

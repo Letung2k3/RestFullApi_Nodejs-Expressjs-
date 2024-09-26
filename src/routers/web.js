@@ -1,7 +1,9 @@
 import express from 'express';
 import {
      getHomePage,
-     getDetailpage,
+     getHomeCRUD,
+     postCRUD,
+     displayGetCRUD
 } from '../controllers/homeController';
 import multer from 'multer';
 import path from 'path';
@@ -36,7 +38,9 @@ let uploadMultipleFiles = multer({ storage: storage, fileFilter: imageFilter }).
 
 const initWebRoute = (app) => {
      router.get('/', getHomePage);
-     router.get('/detail/user/:id', getDetailpage);
+     router.get('/crud', getHomeCRUD);
+     router.get('/get-crud', displayGetCRUD);
+     router.post('/post-crud', postCRUD);
      return app.use('/', router);
 };
 
