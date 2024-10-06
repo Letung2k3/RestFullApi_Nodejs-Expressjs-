@@ -3,8 +3,10 @@ import { render } from "ejs";
 import db from "../models/index";
 import {
      createNewUser,
-     displayCRUD,
-     getAllUsers
+     getAllUsers,
+     getUserInfoById,
+     updateUserData,
+     deleteUserById
 } from "../services/CRUDServices";
 let getHomePage = async (req, res) => {
      let data = await db.User.findAll();
@@ -15,9 +17,32 @@ let getHomeCRUD = async (req, res) => {
      return res.render('crud.ejs')
 };
 
+let getEditCRUD = async (req, res) => {
+     let userId = req.params.id;
+     if (userId) {
+          let userData = await getUserInfoById(userId)
+          return res.render("editCRUD.ejs", { user: userData })
+     }
+     else {
+          return res.send("Not Found Data!")
+     }
+}
+
 let postCRUD = async (req, res) => {
      let messenger = await createNewUser(req.body);
-     return res.send("post crud from server!")
+     return res.send(messenger)
+}
+let deleteCRUD = async (req, res) => {
+     let id = req.params.id;
+     console.log(id);
+     await deleteUserById(id);
+     return res.redirect('/get-crud')
+}
+
+let putCRUD = async (req, res) => {
+     let user = req.body;
+     await updateUserData(user)
+     return res.send("Update done!")
 }
 
 let displayGetCRUD = async (req, res) => {
@@ -74,5 +99,8 @@ export {
      handleUploadFile,
      handleUploadMultipleFiles,
      postCRUD,
-     displayGetCRUD
+     displayGetCRUD,
+     getEditCRUD,
+     putCRUD,
+     deleteCRUD
 };

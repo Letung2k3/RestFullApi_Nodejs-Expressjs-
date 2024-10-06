@@ -3,8 +3,18 @@ import {
      getHomePage,
      getHomeCRUD,
      postCRUD,
-     displayGetCRUD
+     displayGetCRUD,
+     getEditCRUD,
+     putCRUD,
+     deleteCRUD
 } from '../controllers/homeController';
+import {
+     handleLogin,
+     handleGetAllUsers,
+     handleCreateNewUser,
+     handleEditUser,
+     handleDeleteUser
+} from '../controllers/userController'
 import multer from 'multer';
 import path from 'path';
 var appRoot = require('app-root-path');
@@ -40,7 +50,16 @@ const initWebRoute = (app) => {
      router.get('/', getHomePage);
      router.get('/crud', getHomeCRUD);
      router.get('/get-crud', displayGetCRUD);
+     router.get('/edit-crud/:id', getEditCRUD)
      router.post('/post-crud', postCRUD);
+     router.post('/put-crud', putCRUD);
+     router.get('/delete-crud/:id', deleteCRUD);
+
+     router.post('/api/login', handleLogin)
+     router.get('/api/get-all-users', handleGetAllUsers)
+     router.post('/api/create-new-user', handleCreateNewUser)
+     router.put('/api/edit-user', handleEditUser)
+     router.delete('/api/delete-user', handleDeleteUser)
      return app.use('/', router);
 };
 

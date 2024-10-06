@@ -14,28 +14,25 @@
               <th scope="col">#</th>
               <th scope="col">Full Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Password</th>
-              <th scope="col">Image</th>
               <th scope="col">Address</th>
-              <th scope="col">Gender</th>
               <th scope="col">PhoneNumber</th>
-              <th scope="col">RoleId</th>
-              <th scope="col">positionId</th>
+              <th scope="col">
+                    Actions
+              </th>
             </tr>
           </thead>
           <tbody>
                <% data.forEach(function(user, i){ %>
                     <tr>
                         <th scope="row"> <%= i+1 %> </th>
-                        <td><%= user.fullname %></td>
+                        <td><%= user.fullName %></td>
                         <td><%= user.email %></td>
-                        <td><%= user.password %></td>
-                        <td><%= user.image %></td>
                         <td><%= user.address %></td>
-                        <td><%= user.gender %></td>
                         <td><%= user.phonenumber %></td>
-                        <td><%= user.roleId %></td>
-                        <td><%= user.positionId %></td>
+                        <td class="text-center">
+                              <a class="btn btn-info" href="/edit-crud/<%= user.id%>">Edit</button>
+                              <a class="btn btn-danger" href="/delete-crud/<%= user.id%>">Delete</button>
+                        </td>
                     </tr>
                <% }); %>
           </tbody>
