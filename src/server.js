@@ -11,13 +11,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 6969;
 
+app.use(cors({ credentials: true, origin: true }))
 // Middleware to parse JSON bodies
 app.use(express.json());
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 // Configure view engine (if you have such a configuration) //Config app
 
-app.use(cors({ credentials: true, origin: true }))
 
 configViewEngine(app);
 // Initialize routes

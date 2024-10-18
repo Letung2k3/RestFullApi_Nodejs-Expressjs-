@@ -209,10 +209,37 @@ let updataUserData = (data) => {
           }
      })
 }
+let getAllCodeService = (typeInput) => {
+     return new Promise(async (resolve, reject) => {
+          try {
+               if (!typeInput) {
+                    resolve({
+                         errorCode: 1,
+                         errorMessage: "Mising required parameters"
+                    })
+
+               } else {
+                    let res = {
+                         errCode: 0,
+                         data: {}
+                    };
+                    let allcode = await db.Allcode.findAll({
+                         where: { type: typeInput }
+                    });
+                    res.errCode = 0;
+                    res.data = allcode
+                    resolve(res)
+               }
+          } catch (e) {
+               reject(e)
+          }
+     })
+}
 export {
      handleUserLogin,
      getAllUsers,
      CreateNewUser,
      deleteUser,
-     updataUserData
+     updataUserData,
+     getAllCodeService
 }

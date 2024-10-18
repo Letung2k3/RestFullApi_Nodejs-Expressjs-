@@ -13,7 +13,7 @@ import {
      handleGetAllUsers,
      handleCreateNewUser,
      handleEditUser,
-     handleDeleteUser
+     handleDeleteUser, getAllCode
 } from '../controllers/userController'
 import multer from 'multer';
 import path from 'path';
@@ -60,6 +60,8 @@ const initWebRoute = (app) => {
      router.post('/api/create-new-user', handleCreateNewUser)
      router.put('/api/edit-user', handleEditUser)
      router.delete('/api/delete-user', handleDeleteUser)
+
+     router.get('/allcode', getAllCode)
      return app.use('/', router);
 };
 

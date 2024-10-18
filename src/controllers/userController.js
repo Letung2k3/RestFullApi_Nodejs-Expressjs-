@@ -1,5 +1,5 @@
 
-import { handleUserLogin, getAllUsers, CreateNewUser, updataUserData, deleteUser } from "../services/userServices";
+import { handleUserLogin, getAllUsers, CreateNewUser, updataUserData, deleteUser, getAllCodeService } from "../services/userServices";
 const handleLogin = async (req, res) => {
      let email = req.body.email;
      let password = req.body.password
@@ -61,10 +61,23 @@ let handleDeleteUser = async (req, res) => {
           messenger
      })
 }
+let getAllCode = async (req, res) => {
+     try {
+          let data = await getAllCodeService(req.query.type);
+          return res.status(200).json(data)
+     } catch (e) {
+          console.log(e)
+          return res.status(200).json({
+               errCode: -1,
+               errMessage: "Error from server"
+          })
+     }
+}
 export {
      handleLogin,
      handleGetAllUsers,
      handleCreateNewUser,
      handleEditUser,
-     handleDeleteUser
+     handleDeleteUser,
+     getAllCode
 }
